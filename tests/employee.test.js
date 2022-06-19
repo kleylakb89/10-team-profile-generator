@@ -8,7 +8,7 @@ describe('Employee', () => {
             expect('name' in obj).toEqual(true);
             expect('id' in obj).toEqual(true);
             expect('email' in obj).toEqual(true);
-        })
+        });
         it('should set name, id, and email when created', () => {
             const name = 'Sam';
             const id = '25';
@@ -19,8 +19,8 @@ describe('Employee', () => {
             expect(obj.name).toEqual(name);
             expect(obj.id).toEqual(id);
             expect(obj.email).toEqual(email);
-        })
-    })
+        });
+    });
 
     describe('getName', () => {
         it('should return a new employee name', () => {
@@ -29,8 +29,8 @@ describe('Employee', () => {
             const newName = new Employee(name, '25', 'test@testing.com').getName();
 
             expect(name).toEqual(newName);
-        })
-    })
+        });
+    });
 
     describe('getId', () => {
         it('should return a new employee id', () => {
@@ -39,8 +39,8 @@ describe('Employee', () => {
             const newId = new Employee('Sam', id, 'test@testing.com').getId();
 
             expect(id).toEqual(newId);
-        })
-    })
+        });
+    });
 
     describe('getEmail', () => {
         it('should return a new employee email', () => {
@@ -49,8 +49,8 @@ describe('Employee', () => {
             const newEmail = new Employee('Sam', '25', email).getEmail();
 
             expect(email).toEqual(newEmail);
-        })
-    })
+        });
+    });
 
     describe('getRole', () => {
         it('should return a new employee role', () => {
@@ -59,6 +59,6 @@ describe('Employee', () => {
             const newRole = new Employee().getRole();
 
             expect(role).toEqual(newRole);
-        })
-    })
-})
+        });
+    });
+});
