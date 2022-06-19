@@ -10,7 +10,7 @@ describe('Engineer', () => {
             expect('email' in obj).toEqual(true);
             expect('github' in obj).toEqual(true);
         });
-        it('should set name, id, email, and office number when created', () => {
+        it('should set name, id, email, and github username when created', () => {
             const name = 'Sam';
             const id = '25';
             const email = 'test@testing.com';
