@@ -17,5 +17,111 @@
 // THEN I exit the application, and the HTML is generated
 
 // write question prompts
-// make template.html
 // use template to build template literal
+
+const { prompt } = require('inquirer');
+const fs = require('fs');
+
+const questions1 = [
+    {
+        type: 'input',
+        message: 'What is your manager\'s name?',
+        name: 'managerName',
+        validate: answer => (answer.length === 0) ? 'Please input something' : true
+    },
+    {
+        type: 'input',
+        message: 'What is your manager\'s id number?',
+        name: 'managerId',
+        validate: answer => (answer.length === 0) ? 'Please input something' : true
+    },
+    {
+        type: 'input',
+        message: 'What is your manager\'s email?',
+        name: 'managerEmail',
+        validate: answer => (answer.length === 0) ? 'Please input something' : true
+    },
+    {
+        type: 'input',
+        message: 'What is your manager\'s officer number?',
+        name: 'officeNumber',
+        validate: answer => (answer.length === 0) ? 'Please input something' : true
+    },
+]
+
+const questions2 = [
+    {
+        type: 'list',
+        message: 'What team member would you like to add?',
+        choices: ['Engineer', 'Intern', 'I don\'t want to add any more members'],
+        name: 'choice'
+    },
+    {
+        type: 'input',
+        message: 'What is your engineer\'s name?',
+        name: 'engineerName',
+        validate: answer => (answer.length === 0) ? 'Please input something' : true,
+        when: answers => answers.choice === 'Engineer'
+    },
+    {
+        type: 'input',
+        message: 'What is your engineer\'s id number?',
+        name: 'engineerId',
+        validate: answer => (answer.length === 0) ? 'Please input something' : true,
+        when: answers => answers.choice === 'Engineer'
+    },
+    {
+        type: 'input',
+        message: 'What is your engineer\'s email?',
+        name: 'engineerEmail',
+        validate: answer => (answer.length === 0) ? 'Please input something' : true,
+        when: answers => answers.choice === 'Engineer'
+    },
+    {
+        type: 'input',
+        message: 'What is your engineer\'s GitHub username?',
+        name: 'engineerGithub',
+        validate: answer => (answer.length === 0) ? 'Please input something' : true,
+        when: answers => answers.choice === 'Engineer'
+    },
+    {
+        type: 'input',
+        message: 'What is your intern\'s name?',
+        name: 'internName',
+        validate: answer => (answer.length === 0) ? 'Please input something' : true,
+        when: answers => answers.choice === 'Intern'
+    },
+    {
+        type: 'input',
+        message: 'What is your intern\'s id number?',
+        name: 'internId',
+        validate: answer => (answer.length === 0) ? 'Please input something' : true,
+        when: answers => answers.choice === 'Intern'
+    },
+    {
+        type: 'input',
+        message: 'What is your intern\'s email?',
+        name: 'internEmail',
+        validate: answer => (answer.length === 0) ? 'Please input something' : true,
+        when: answers => answers.choice === 'Intern'
+    },
+    {
+        type: 'input',
+        message: 'What is your intern\'s school?',
+        name: 'internSchool',
+        validate: answer => (answer.length === 0) ? 'Please input something' : true,
+        when: answers => answers.choice === 'Intern'
+    }
+]
+
+const init = async () => {
+    const data1 = await prompt(questions1);
+    console.log(data1);
+    let data2 = {};
+    do {
+        data2 = await prompt(questions2);
+    } while (data2.choice !== 'I don\'t want to add any more members');
+    console.log(data2);
+}
+
+init();
