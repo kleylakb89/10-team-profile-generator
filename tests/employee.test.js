@@ -1,7 +1,9 @@
 const Employee = require('../lib/employee.js');
 
+// tests for the employee class
 describe('Employee', () => {
     describe('constructor', () => {
+        // object Employee should have three key-value pairs
         it('should return an object with three values when called with new keyword', () => {
             const obj = new Employee();
 
@@ -9,6 +11,7 @@ describe('Employee', () => {
             expect('id' in obj).toEqual(true);
             expect('email' in obj).toEqual(true);
         });
+        // object Employee should have a name, id, and email
         it('should set name, id, and email when created', () => {
             const name = 'Sam';
             const id = '25';
@@ -22,6 +25,7 @@ describe('Employee', () => {
         });
     });
 
+    // getName function should return the employee's name
     describe('getName', () => {
         it('should return a new employee name', () => {
             const name = 'Sam';
@@ -32,6 +36,7 @@ describe('Employee', () => {
         });
     });
 
+    // getId function should return the employee's id
     describe('getId', () => {
         it('should return a new employee id', () => {
             const id = '25';
@@ -42,6 +47,7 @@ describe('Employee', () => {
         });
     });
 
+    // getEmail function should return the employee's email
     describe('getEmail', () => {
         it('should return a new employee email', () => {
             const email = 'test@testing.com';
@@ -52,6 +58,7 @@ describe('Employee', () => {
         });
     });
 
+    // getRole function should return the employee's role
     describe('getRole', () => {
         it('should return a new employee role', () => {
             const role = 'Employee';

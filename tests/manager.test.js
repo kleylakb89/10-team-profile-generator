@@ -1,7 +1,9 @@
 const Manager = require('../lib/manager.js');
 
+// tests for Manager subclass
 describe('Manager', () => {
     describe('constructor', () => {
+        // object Manager should have four key-value pairs
         it('should return an object with four values when called with new keyword', () => {
             const obj = new Manager();
 
@@ -10,6 +12,7 @@ describe('Manager', () => {
             expect('email' in obj).toEqual(true);
             expect('officeNumber' in obj).toEqual(true);
         });
+        // object Manager should have a name, id, email, and office number
         it('should set name, id, email, and office number when created', () => {
             const name = 'Sam';
             const id = '25';
@@ -25,6 +28,7 @@ describe('Manager', () => {
         });
     });
 
+    // getRole function should return the manager's role
     describe('getRole', () => {
         it('should return a new manager role', () => {
             const role = 'Manager';

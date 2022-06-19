@@ -1,6 +1,11 @@
+// require all packages and files
 const { prompt } = require('inquirer');
 const fs = require('fs');
+const Manager = require('./lib/manager.js');
+const Engineer = require('./lib/engineer.js');
+const Intern = require('./lib/intern.js');
 
+// first set of questions for the manager. Requires input to continue
 const questions1 = [
     {
         type: 'input',
@@ -28,6 +33,7 @@ const questions1 = [
     },
 ]
 
+// set array of questions for engineers and interns. Starts with list choice.
 const questions2 = [
     {
         type: 'list',
@@ -93,40 +99,48 @@ const questions2 = [
     }
 ]
 
+// async init function to prompt questions
 const init = async () => {
     const data1 = await prompt(questions1);
     let data2 = {};
     let team = [];
+    // will run the second set of questions as long as the user continues to input engineers or interns
     do {
         data2 = await prompt(questions2);
         team.push(data2);
     } while (data2.choice !== 'I don\'t want to add any more members');
+    // writes to file the generated HTML
     fs.writeFile('./output/index.html', generateHTML(generateManager(data1), generateEngineer(team), generateIntern(team)), err => err ? console.log(err) : console.log('Your HTML file is complete!'));
 }
 
+// will create a new Manager subclass and return a template literal filled with the manager's data
 const generateManager = (data) => {
+    const manager = new Manager(data.managerName, data.managerId, data.managerEmail, data.officeNumber);
     return `<div class="card col-4 p-2 bg-warning m-3" style="width: 18rem;">
-                    <h5 class="card-title">${data.managerName}</h5>
-                    <h6 class="card-subtitle p-3">☕ Manager</h6>
+                    <h5 class="card-title">${manager.getName()}</h5>
+                    <h6 class="card-subtitle p-3">☕ ${manager.getRole()}</h6>
                     <ul class="list-group list-group-flush">
-                        <li class="list-group-item">ID: ${data.managerId}</li>
-                        <li class="list-group-item">Email: <a href="mailto:${data.managerEmail}">${data.managerEmail}</a></li>
-                        <li class="list-group-item">Office Number: ${data.officeNumber}</li>
+                        <li class="list-group-item">ID: ${manager.getId()}</li>
+                        <li class="list-group-item">Email: <a href="mailto:${manager.getEmail()}">${manager.getEmail()}</a></li>
+                        <li class="list-group-item">Office Number: ${manager.officeNumber}</li>
                     </ul>
                 </div>`
 }
 
+// will create Engineer subclasses and fill a template literal with that data
 const generateEngineer = (arr) => {
     let engineers = '';
+    // loops through the array of engineers and interns and extracts the data for the engineers
     for (member of arr) {
         if (member.choice === 'Engineer') {
+            let engineer = new Engineer(member.engineerName, member.engineerId, member.engineerEmail, member.engineerGithub)
             engineers += `<div class="card col-4 p-2 bg-warning m-3" style="width: 18rem;">
-                    <h5 class="card-title">${member.engineerName}</h5>
-                    <h6 class="card-subtitle p-3">👓 Engineer</h6>
+                    <h5 class="card-title">${engineer.getName()}</h5>
+                    <h6 class="card-subtitle p-3">👓 ${engineer.getRole()}</h6>
                     <ul class="list-group list-group-flush">
-                        <li class="list-group-item">ID: ${member.engineerId}</li>
-                        <li class="list-group-item">Email: <a href="mailto:${member.engineerEmail}">${member.engineerEmail}</a></li>
-                        <li class="list-group-item">GitHub: <a href="https://github.com/${member.engineerGithub}">${member.engineerGithub}</a></li>
+                        <li class="list-group-item">ID: ${engineer.getId()}</li>
+                        <li class="list-group-item">Email: <a href="mailto:${engineer.getEmail()}">${engineer.getEmail()}</a></li>
+                        <li class="list-group-item">GitHub: <a href="https://github.com/${engineer.getGithub()}">${engineer.getGithub()}</a></li>
                     </ul>
                 </div>
                 `
@@ -135,17 +149,20 @@ const generateEngineer = (arr) => {
     return engineers;
 }
 
+// will create Intern subclasses and fill a template literal with that data
 const generateIntern = (arr) => {
     let interns = '';
+    // loops through the array of engineers and interns and extracts the data for the interns
     for (member of arr) {
         if(member.choice === 'Intern') {
+            let intern = new Intern(member.internName, member.internId, member.internEmail, member.internSchool)
             interns += `<div class="card col-4 p-2 bg-warning m-3" style="width: 18rem;">
-                    <h5 class="card-title">${member.internName}</h5>
-                    <h6 class="card-subtitle p-3">🎓 Intern</h6>
+                    <h5 class="card-title">${intern.getName()}</h5>
+                    <h6 class="card-subtitle p-3">🎓 ${intern.getRole()}</h6>
                     <ul class="list-group list-group-flush">
-                        <li class="list-group-item">ID: ${member.internId}</li>
-                        <li class="list-group-item">Email: <a href="mailto:${member.internEmail}">${member.internEmail}</a></li>
-                        <li class="list-group-item">School: ${member.internSchool}</li>
+                        <li class="list-group-item">ID: ${intern.getId()}</li>
+                        <li class="list-group-item">Email: <a href="mailto:${intern.getEmail()}">${intern.getEmail()}</a></li>
+                        <li class="list-group-item">School: ${intern.getSchool()}</li>
                     </ul>
                 </div>
                 `
@@ -154,6 +171,7 @@ const generateIntern = (arr) => {
     return interns;
 }
 
+// creates a full HTML file populated with the cards created using the previous generate functions
 const generateHTML = (func1, func2, func3) => {
     return `<!DOCTYPE html>
     <html lang="en">
@@ -185,4 +203,5 @@ const generateHTML = (func1, func2, func3) => {
     </html>`
 }
 
+// runs the initializing function
 init();
