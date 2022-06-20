@@ -34,4 +34,4 @@ An example of the launched HTML page.
 
 - [Repository](https://github.com/kleylakb89/10-team-profile-generator)
 - [Video Walkthrough](https://drive.google.com/file/d/1Gq5l47EKXR3OLqTK5qkHoozxd25p5Yvj/view)
-- [Generated HTML]()
+- [Generated HTML](https://raw.githubusercontent.com/kleylakb89/10-team-profile-generator/main/output/index.html)
